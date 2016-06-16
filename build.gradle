@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+repositories {
+	jcenter()
+}
+
+jar {
+	baseName = 'cli'
+	from {
+		(configurations.compile).collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+}
+
+dependencies {
+	compile 'commons-cli:commons-cli:1.3.1'
+	compileOnly fileTree(dir: '../RichTea')
+}
